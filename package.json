@@ -1,0 +1,15 @@
+﻿{
+  "name": "javert-architect",
+  "version": "1.0.0",
+  "description": "Derinlemesine savunma mimarisi kurma ve MITRE ATT&CK tabanlı saldırı simülasyonu ile siber güvenlik eğitim oyunu.",
+  "private": true,
+  "scripts": {
+    "start": "npx --yes http-server . -p 8080 -c-1",
+    "test": "node --test"
+  },
+  "keywords": ["cybersecurity", "defense-in-depth", "mitre-attack", "security-awareness", "education", "game"],
+  "license": "MIT",
+  "engines": {
+    "node": ">=18"
+  }
+}

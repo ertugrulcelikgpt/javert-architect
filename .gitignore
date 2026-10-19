@@ -1,0 +1,8 @@
+node_modules/
+.claude/
+.DS_Store
+Thumbs.db
+*.log
+
+# Staj sırasında alınan orijinal referans ekran görüntüleri (kök dizindeki 1.png … 6.png)
+/*.png

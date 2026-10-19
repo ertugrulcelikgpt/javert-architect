@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>JAVERT Architect — Güvenlik Mimarisi Simülatörü</title>
+  <meta name="description" content="Derinlemesine savunma (defense-in-depth) mimarisi kurma ve saldırı simülasyonu ile siber güvenlik eğitim oyunu." />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🛡️</text></svg>" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <div class="app">
+    <header class="topbar">
+      <div class="brand">
+        <span class="brand-name">JAVERT</span>
+        <span class="brand-sub">Architect</span>
+      </div>
+      <div class="topbar-right">
+        <button class="btn-ghost" id="btn-missions" type="button">☰ Görevler</button>
+        <div class="operator"><span class="tri">◢</span> Operatör <span class="dot"></span> <span class="muted">bağlı</span></div>
+      </div>
+    </header>
+
+    <section class="mission card accent-left" id="mission">
+      <div class="mission-meta">
+        <span class="kicker">GÖRSEL · MİMARİ</span>
+        <span class="badge" id="m-diff">ORTA</span>
+        <span class="mission-count" id="m-count">1/8 GÖREV</span>
+      </div>
+      <h1 class="mission-title" id="m-title">—</h1>
+      <p class="mission-brief" id="m-brief"></p>
+    </section>
+
+    <!-- KURULUM GÖRÜNÜMÜ -->
+    <main class="builder" id="view-builder">
+      <section class="card canvas">
+        <div class="node node-source" id="node-source">
+          <span class="node-icon" id="src-icon">🌐</span>
+          <div>
+            <div class="node-name" id="src-name">İNTERNET</div>
+            <div class="node-note" id="src-note">saldırı buradan gelir</div>
+          </div>
+        </div>
+        <div class="flow-arrow">▼</div>
+        <ol class="dropzone" id="dropzone" aria-label="Yerleştirilen güvenlik katmanları"></ol>
+        <div class="flow-arrow">▼</div>
+        <div class="node node-target">
+          <span class="node-icon" id="tgt-icon">🗂️</span>
+          <div>
+            <div class="node-name" id="tgt-name">DOSYA SUNUCULARI</div>
+            <div class="node-note">korunan varlık</div>
+          </div>
+        </div>
+
+        <div class="budget">
+          <div class="budget-head">
+            <span class="label">BÜTÇE</span>
+            <span id="budget-text">0 / 0 birim</span>
+          </div>
+          <div class="meter"><div class="meter-fill" id="budget-fill"></div></div>
+        </div>
+
+        <div class="actions">
+          <button class="btn btn-secondary" id="btn-hint" type="button" title="Bir zorunlu katmanı gösterir (−5 puan)">💡 İpucu</button>
+          <button class="btn btn-secondary" id="btn-clear" type="button">⟲ Temizle</button>
+          <button class="btn btn-primary" id="btn-eval" type="button">Değerlendir ▶</button>
+        </div>
+      </section>
+
+      <aside class="card palette">
+        <h2 class="section-title">// Güvenlik Katmanları</h2>
+        <input class="search" id="search" type="search" placeholder="Katman ara…" autocomplete="off" />
+        <div class="chips" id="chips"></div>
+        <ul class="palette-list" id="palette"></ul>
+      </aside>
+    </main>
+
+    <!-- SONUÇ GÖRÜNÜMÜ -->
+    <section class="card result" id="view-result" hidden>
+      <div class="score-wrap">
+        <div class="score" id="r-score">0</div>
+        <div class="score-of">/ 100 PUAN</div>
+        <div class="grade" id="r-grade">—</div>
+      </div>
+
+      <div class="breakdown" id="r-breakdown"></div>
+
+      <ul class="feedback" id="r-feedback"></ul>
+
+      <div class="divider"></div>
+
+      <h3 class="sub-title">⚔ Saldırı Simülasyonu</h3>
+      <p class="muted small">Saldırı zinciri, kurduğun mimariye karşı oynatıldı. Teknik kimlikleri MITRE ATT&amp;CK'e göredir.</p>
+      <div class="outcome" id="r-outcome"></div>
+      <ol class="killchain" id="r-chain"></ol>
+
+      <div class="divider"></div>
+
+      <h3 class="sub-title good">✓ Örnek Doğru Mimari</h3>
+      <p class="rationale" id="r-rationale"></p>
+      <ol class="ideal" id="r-ideal"></ol>
+
+      <div class="actions result-actions">
+        <button class="btn btn-secondary" id="btn-retry" type="button">↻ Tekrar Dene</button>
+        <button class="btn btn-primary" id="btn-next" type="button">Yeni Görev ▶</button>
+      </div>
+    </section>
+
+    <footer class="footer">■ Eğitim simülasyonu · gerçek sistemlere bağlantı kurulmaz</footer>
+  </div>
+
+  <!-- GÖREV LİSTESİ -->
+  <dialog class="modal" id="missions-dialog">
+    <div class="modal-head">
+      <h2 class="section-title">// Görevler</h2>
+      <button class="btn-ghost" id="btn-close-missions" type="button" aria-label="Kapat">✕</button>
+    </div>
+    <div class="overall" id="overall"></div>
+    <ul class="mission-grid" id="mission-grid"></ul>
+    <div class="modal-foot">
+      <button class="btn-ghost danger" id="btn-reset" type="button">İlerlemeyi sıfırla</button>
+    </div>
+  </dialog>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script src="js/layers.js"></script>
+  <script src="js/scenarios.js"></script>
+  <script src="js/engine.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
