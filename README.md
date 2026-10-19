@@ -13,6 +13,9 @@ mimarini puanlat ve MITRE ATT&CK tabanlı saldırı zincirinin nerede durduruldu
 ![MITRE ATT&CK](https://img.shields.io/badge/MITRE-ATT%26CK-red)
 ![Bağımlılık yok](https://img.shields.io/badge/ba%C4%9F%C4%B1ml%C4%B1l%C4%B1k-yok-2dd4bf)
 ![Lisans: MIT](https://img.shields.io/badge/lisans-MIT-blue)
+[![CI](https://github.com/ertugrulcelikgpt/javert-architect/actions/workflows/ci.yml/badge.svg)](https://github.com/ertugrulcelikgpt/javert-architect/actions/workflows/ci.yml)
+
+### [▶ Canlı Demo](https://ertugrulcelikgpt.github.io/javert-architect/)
 
 <img src="docs/screenshots/builder.png" alt="JAVERT Architect mimari kurulum ekranı" width="900" />
 
